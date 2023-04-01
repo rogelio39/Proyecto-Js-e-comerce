@@ -1,0 +1,53 @@
+/*============INDEX===========*/
+
+.index__encabezado {
+    font-size: $fuente-encabezado;
+    padding: 15px;
+    background-color: $color-primario;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    box-shadow: 20px 0px 10px 10px black;
+
+    &:hover nav {
+        margin: 15px 0px 15px;
+    }
+
+    ul {
+        @include flex-box(column, space-between, flex-start);
+        gap: 12px;
+    }
+
+
+}
+
+
+/*=======VERSION TABLET=========*/
+
+@media (min-width:760px) and (max-width:1099px) {
+
+    .index__encabezado {
+        @include flex-box(column, space-between, center);
+        gap: 12px;
+    }
+}
+
+
+/*======VERSION DESKTOP==========*/
+
+@media (min-width: 1100px) {
+    .index__encabezado {
+        padding: 5px;
+        @include flex-box(row, space-between, center);
+        position: sticky;
+        top: 0;
+        z-index: 4;
+
+        nav ul {
+            @include flex-box(row, space-between, center);
+            gap: 20px;
+        }
+    }
+}
+
+
