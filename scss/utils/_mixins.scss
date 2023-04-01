@@ -1,0 +1,23 @@
+@mixin flex-box($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+
+@mixin border($color: black, $width: 2px, $style: groove) {
+    border-color: $color;
+    border-width: width;
+    border-style: $style;
+}
+
+
+
+
+@mixin grid ($columns, $rows, $areas){
+    display: grid;
+    grid-template-columns: $columns;
+    grid-template-rows: $rows;
+    grid-template-areas: $areas;
+}
