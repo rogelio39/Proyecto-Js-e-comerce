@@ -52,51 +52,6 @@ function checkUser() {
     return true;
 }
 
-// //variable para preguntarle al usuario si desea crearse un usuario o continuar sin usuario
-const registro = prompt("Debe crearse un usuario?");
-
-
-//se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
-
-if (registro === "no") {
-    registro = prompt("Esta bien, puede continuar sin un usuario ");
-} else if (registro === "si") {
-
-    const nombre = prompt("Ingrese nombre de usuario")
-    const email = prompt("ingrese email: ")
-    const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
-
-    while (contraseña < 10000000) {
-        alert("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga");
-        contraseña = parseInt(prompt("ingrese contraseña: "));
-    }
-
-
-    //se crea un nuevo usuario
-
-    usuarioNuevo3 = new Usuario(nombre, email, contraseña);
-
-    alert("Usuario creado con exito.")
-    alert("Ingrese ahora su cuenta")
-
-    //se llama a la funcion checkUsersi
-    checkUser();
-
-    users.push(usuarioNuevo3)
-
-
-
-    alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
-} else {
-    alert("Entrada invalida")
-}
-
-//se recorre el arreglo users y se muestra por console el nombre y emmail de los usuarios.
-for (const usuario of users) {
-    console.log(usuario.nombre, usuario.email);
-}
-
-
 
 
 class Producto {
@@ -143,6 +98,44 @@ const btnNode = document.querySelector(`#añadirProd`);
 
 
 btnNode.onclick = () => {
+
+    const crearseUsuario = prompt("Debe crearse un usuario para comprar?");
+
+    //se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
+
+if (crearseUsuario === "no") {
+    crearseUsuario = prompt("Esta bien, puede continuar sin un usuario ");
+} else if (crearseUsuario === "si") {
+
+    const nombre = prompt("Ingrese nombre de usuario")
+    const email = prompt("ingrese email: ")
+    const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
+
+    while (contraseña < 10000000) {
+        alert("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga");
+        contraseña = parseInt(prompt("ingrese contraseña: "));
+    }
+
+
+    //se crea un nuevo usuario
+
+    usuarioNuevo3 = new Usuario(nombre, email, contraseña);
+
+    alert("Usuario creado con exito.")
+    alert("Ingrese ahora su cuenta")
+
+    //se llama a la funcion checkUsersi
+    checkUser();
+
+    users.push(usuarioNuevo3)
+
+
+
+    alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
+} else {
+    alert("Entrada invalida")
+}
+
 
     const index = selectNode.selectedIndex;
     const prodSeleccionado = productos[index];
