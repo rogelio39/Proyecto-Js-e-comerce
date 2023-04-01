@@ -6,43 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
     <div class="index">
-    <header class="index__encabezado">
-        <h1>PRODUCTOS SALUDABLES</h1>
-        <nav>
-            <ul>
-                <li>INICIO</li>
-                <li>CARRITO</li>
-                <li>CONTACTO</li>
-            </ul>
-        </nav>
-    </header>
-    <div>
-        <section>
-            <h2>PANES</h2>
-            <div>
-                <h3>Pan integral</h3>
-                <img src="./img/panIntegral.jfif" alt="Pan integral">
-            </div>
-            <div>
-                <h3>Pan de molde blanco</h3>
-                <img src="./img/panBlanco.jfif" alt="Pan de molde blanco">
-            </div>
-        </section>
-        <section>
-            <h2>BUDINES</h2>
-            <img src="./img/budines.jfif" alt="">
-        </section>
-        <section>
-            <h2>ALFAJORES</h2>
-            <img src="./img/alfajores.jfif" alt="">
-        </section>
+        <header class="index__encabezado">
+            <h1>PRODUCTOS SALUDABLES</h1>
+            <nav class="index__nav">
+                <ul>
+                    <li class="btn"><a href="./index.html">INICIO</a></li>
+                    <li class="btn">CARRITO</li>
+                    <li class="btn">CONTACTO</li>
+                    <li class="btn">LISTA PRODUCTOS<select name="listaProds" id="listaProds"></select></li>
+                </ul>
+                <button class="btn" id="añadirProd">AÑADIR PRODUCTO</button>
+                <button class="btn" id="finalizarCompra">FINALIZAR COMPRA</button>
+            </nav>
+        </header>
+        <div class="index__productos">
+            <section class="index__panes">
+                <h2 class="btn">PANES</h2>
+                <div class="index__integral">
+                    <h3 class="btn">Pan integral</h3>
+                    <img src="./img/panIntegral.jfif" alt="Pan integral">
+                </div>
+                <div class="index__moldeBlanco">
+                    <h3 class="btn">Pan de molde blanco</h3>
+                    <img src="./img/panBlanco.jfif" alt="Pan de molde blanco">
+                </div>
+            </section>
+            <section class="index__budines">
+                <h2 class="btn">BUDINES</h2>
+                <div>
+                    <img src="./img/budines.jfif" alt="">
+                </div>
+            </section>
+            <section class="index__alfajores">
+                <h2 class="btn">ALFAJORES</h2>
+                <div>
+                    <img src="./img/alfajores.jfif" alt="">
+                </div>
+            </section>
+        </div>
     </div>
 
-    <footer>
+    <footer class="index__pieDePagina">
         <nav>
             <ul>
                 <li>INICIO</li>
@@ -51,7 +60,9 @@
         </nav>
     </footer>
 
-</div>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 
 </html>
