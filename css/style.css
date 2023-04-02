@@ -596,40 +596,6 @@ a {
   padding: 3px;
 }
 
-@media (min-width: 1100px) {
-  .index {
-    background-color: bisque;
-  }
-  .index__productos {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 33% 33% 33%;
-    grid-template-areas: "panes" "budines" "alfajores";
-    margin-bottom: 10rem;
-  }
-  .index__panes {
-    grid-area: panes;
-    width: 99%;
-    margin-right: 5vw;
-    gap: 2rem;
-    padding: 10px;
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    overflow: auto;
-  }
-  .index__budines {
-    grid-area: budines;
-    width: 50%;
-  }
-  .index__alfajores {
-    grid-area: alfajores;
-    width: 50%;
-    margin-bottom: 10rem;
-  }
-}
 /*===============CONTACTO==============*/
 .contacto {
   background-color: rgba(233, 221, 221, 0.868);
@@ -803,8 +769,39 @@ a {
   animation-timing-function: ease-in-out;
 }
 
-/*=======Vista Desktop======*/
 @media (min-width: 1100px) {
+  .index {
+    background-color: bisque;
+  }
+  .index__productos {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 33% 33% 33%;
+    grid-template-areas: "panes" "budines" "alfajores";
+    margin-bottom: 10rem;
+  }
+  .index__panes {
+    grid-area: panes;
+    width: 99%;
+    margin-right: 5vw;
+    gap: 2rem;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: auto;
+  }
+  .index__budines {
+    grid-area: budines;
+    width: 50%;
+  }
+  .index__alfajores {
+    grid-area: alfajores;
+    width: 50%;
+    margin-bottom: 10rem;
+  }
   .contacto {
     background-attachment: fixed;
     background-size: cover;

@@ -175,17 +175,19 @@ const formulario = document.getElementById("formulario");
 
 const inputNombre = document.getElementById("usuario__nombre");
 
+const inputEmail = document.getElementById("usuario__email");
+
 const inputContraseña = document.getElementById("usuario__contraseña");
 
 formulario.onsubmit = (e) => {
     e.preventDefault();
     const infoUsuario = {
         nombre: inputNombre.value,
+        email: inputEmail.value
     }
 
-    localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario))
+    localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario));
 }
-
 
 
 
