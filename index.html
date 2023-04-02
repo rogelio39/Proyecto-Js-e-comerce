@@ -17,11 +17,12 @@
                 <ul>
                     <li class="btn"><a href="./index.html">INICIO</a></li>
                     <li class="btn">CARRITO</li>
-                    <li class="btn">CONTACTO</li>
-                    <li class="btn">LISTA PRODUCTOS<select name="listaProds" id="listaProds"></select></li>
+                    <li class="btn"><a href="./views/contacto.html">CONTACTO</a></li>
+                    <li><label class="btn" for="listaProds">LISTA PRODUCTOS</label></li>
+                    <li><select name="listaProds" id="listaProds"></select></li>
+                    <li><button class="btn" id="añadirProd">AÑADIR PRODUCTO</button></li>
+                    <li><button class="btn" id="finalizarCompra">FINALIZAR COMPRA</button></li>
                 </ul>
-                <button class="btn" id="añadirProd">AÑADIR PRODUCTO</button>
-                <button class="btn" id="finalizarCompra">FINALIZAR COMPRA</button>
             </nav>
         </header>
         <div class="index__productos">
@@ -50,6 +51,69 @@
             </section>
         </div>
     </div>
+
+    <section class="contacto">
+
+        <form id="formulario" name="contacto" netlify class="contacto__formulario">
+            <h2>Formulario de contacto</h2>
+            <div class="contacto__usuario">
+                <label for="usuario__nombre">Ingrese su nombre y apellido</label>
+                <input type="text" id="usuario_nombre" name="usuario__nombre" placeholder="Nombre y apellido">
+            </div>
+
+            <div class="contacto__email">
+                <label for="usuario__email">Ingrese su email</label>
+                <input type="email" id="usuario__email" name="usuario__email" placeholder="ejemplo@gmail.com">
+            </div>
+
+            <div class="contacto__contraseña">
+                <label for="usuario__contraseña">Ingrese su contraseña</label>
+                <input type="contraseña" id="usuario__contraseña" name="usuario__contraseña" placeholder="*********">
+            </div>
+            </div>
+
+            <div class="contacto__mensaje">
+                <label for="usuario__mensaje">Ingrese su mensaje</label>
+                <textarea name="usuario__mensaje" id="usuario__mensaje" cols="30" rows="10"
+                    placeholder="Si quieres pasarnos un poema que te gusta también puedes hacerlo por aqui."></textarea>
+            </div>
+
+            <div class="contacto__asuntos">
+                <label for="contacto__usuario">Selecciona un asunto:</label>
+                <select name="contacto__usuario" id="contacto__usuario">
+                    <option value="mensaje">Mensaje</option>
+                    <option value="reclamo">Reclamo</option>
+                    <option value="consultas">Consultas</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="contacto__genero">
+                <div>Ingrese su género: </div>
+
+                <label for="mujer">Mujer</label>
+                <input type="radio" id="mujer" name="radio_genero" value="mujer">
+
+                <label for="hombre">Hombre</label>
+                <input type="radio" id="hombre" name="radio_genero" value="hombre">
+
+                <label for="otro">Prefiero no contestar</label>
+                <input type="radio" id="otro" name="radio_genero" value="otro">
+
+            </div>
+
+            <div class="contacto__novedades">
+                <label for="usuario__noticias">¿Desea recibir novedades?</label>
+                <input type="checkbox" name="usuario__noticias" id="usuario__noticias">
+            </div>
+
+            <div class="contacto__enviar">
+                <input type="submit" id="submit" name="submit" value="Enviar">
+                <input type="reset" id="reset" name="reset" value="Restablecer formulario">
+            </div>
+
+        </form>
+    </section>
 
     <footer class="index__pieDePagina">
         <nav>

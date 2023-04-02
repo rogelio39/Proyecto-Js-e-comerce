@@ -29,7 +29,6 @@ users.push(usuarioNuevo1, usuarioNuevo2);
 let usuarioNuevo3
 
 //funcion que chequea si los datos ingresados para la creacion de un nuevo usuario coinciden al momento de ingresar a la cuenta. Si coinciden te da la bienvenida y sino te da usuario incorrecto y te pide ingresar nuevamente los datos.
-
 function checkUser() {
     let checkNombre = prompt("Ingrese nombre de usuario");
     while (usuarioNuevo3.nombre !== checkNombre) {
@@ -82,7 +81,7 @@ productos.forEach((prod) => {
     const optionProd = document.createElement('option');
     optionProd.innerText = `${prod.nombre}: ${prod.precio}`;
     optionProd.setAttribute(`id`, `${prod.id}`);
-    selectNode.append(optionProd)
+    selectNode.append(optionProd);
 }
 );
 
@@ -96,10 +95,15 @@ const carrito = [];
 
 const btnNode = document.querySelector(`#añadirProd`);
 
-
 btnNode.onclick = () => {
 
-    const crearseUsuario = prompt("Debe crearse un usuario para comprar?");
+    alert("Debe crearse un usuario")
+    const crearseUsuario = prompt(`Desea crearselo?
+    
+    -Si
+    -No
+    
+    `);
 
     //se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
 
@@ -128,7 +132,6 @@ if (crearseUsuario === "no") {
     checkUser();
 
     users.push(usuarioNuevo3)
-
 
 
     alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
@@ -164,6 +167,24 @@ finalizarBtnNode.onclick = () => {
 
 
 
+
+//==============FORMULARIO CONTACTO========================
+
+
+const formulario = document.getElementById("formulario");
+
+const inputNombre = document.getElementById("usuario__nombre");
+
+const inputContraseña = document.getElementById("usuario__contraseña");
+
+formulario.onsubmit = (e) => {
+    e.preventDefault();
+    const infoUsuario = {
+        nombre: inputNombre.value,
+    }
+
+    localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario))
+}
 
 
 

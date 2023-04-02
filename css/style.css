@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box;
   margin: 0;
@@ -367,7 +368,7 @@ a {
   box-shadow: 20px 0px 10px 10px black;
   margin-bottom: 2rem;
 }
-.index__encabezado:hover nav {
+.index__encabezado__nav:hover {
   margin: 15px 0px 15px;
 }
 .index__encabezado ul {
@@ -378,16 +379,6 @@ a {
   gap: 12px;
 }
 
-/*=======VERSION TABLET=========*/
-@media (min-width: 760px) and (max-width: 1099px) {
-  .index__encabezado {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-}
 /*======VERSION DESKTOP==========*/
 @media (min-width: 1100px) {
   .index__encabezado {
@@ -400,12 +391,52 @@ a {
     top: 0;
     z-index: 4;
   }
-  .index__encabezado nav ul {
+  .index__encabezado__nav:hover {
+    margin: 15px 0px 15px;
+  }
+  .index__encabezado ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+/*=====================contacto==============*/
+.contacto__encabezado {
+  padding: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: rgba(238, 193, 134, 0.7);
+  box-shadow: 0px 0px 15px black;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.contacto__encabezado hr {
+  margin: 0;
+  height: 1px;
+  color: black;
+}
+.contacto__encabezado:hover li {
+  margin: 15px 0px 15px;
+}
+
+/*=======Vista Desktop======*/
+@media (min-width: 1100px) {
+  .contacto__encabezado {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
-    gap: 20px;
+  }
+  .contacto__encabezado hr {
+    display: none;
   }
 }
 /*=============index=================*/
@@ -597,6 +628,220 @@ a {
     grid-area: alfajores;
     width: 50%;
     margin-bottom: 10rem;
+  }
+}
+/*===============CONTACTO==============*/
+.contacto {
+  background-color: rgba(233, 221, 221, 0.868);
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+}
+.contacto__formulario h2 {
+  margin: 10px;
+  margin-top: 10px;
+  font-size: 1.4rem;
+  padding: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  text-align: center;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__usuario {
+  padding: 15px;
+  margin: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__usuario input {
+  width: 15rem;
+  padding: 15px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+}
+.contacto__email {
+  width: 75vw;
+  padding: 15px;
+  margin: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__email input {
+  width: 17rem;
+  padding: 15px;
+  border-radius: 20px;
+  border: black 2px groove;
+}
+.contacto__contraseña {
+  padding: 15px;
+  margin: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__contraseña input {
+  width: 15rem;
+  padding: 15px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+}
+.contacto__mensaje {
+  padding: 15px;
+  margin: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(238, 193, 134, 0.7);
+  width: 90%;
+}
+.contacto__mensaje textarea {
+  padding: 10px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+}
+.contacto__asuntos {
+  width: 70%;
+  padding: 10px;
+  margin: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__asuntos select {
+  width: 10rem;
+  padding: 15px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+}
+.contacto__genero {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  background-color: rgba(238, 193, 134, 0.7);
+  padding: 20px;
+}
+.contacto__novedades {
+  width: 45%;
+  margin: 10px;
+  padding: 20px;
+  align-items: center;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto__enviar {
+  margin: 10px;
+  padding: 10px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  background-color: rgba(238, 193, 134, 0.7);
+}
+.contacto #reset {
+  width: 15rem;
+  padding: 13px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  animation-name: heartbeat;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.contacto #submit {
+  width: 10rem;
+  padding: 13px;
+  border-radius: 20px;
+  border-color: black;
+  border-width: width;
+  border-style: groove;
+  animation-name: heartbeat;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/*=======Vista Desktop======*/
+@media (min-width: 1100px) {
+  .contacto {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+  .contacto__formulario h2 {
+    width: 70%;
+    margin: 0;
+    margin-top: 2vw;
+    margin-left: 10px;
+  }
+  .contacto__usuario {
+    width: 70%;
+  }
+  .contacto__email {
+    width: 70vw;
+  }
+  .contacto__mensaje {
+    width: 80vw;
+  }
+  .contacto__asuntos {
+    width: 40vw;
+  }
+  .contacto__genero {
+    width: 60vw;
+  }
+  .contacto__novedades {
+    width: 40vw;
+    display: flex;
+    gap: 40px;
+  }
+  .contacto__enviar {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 

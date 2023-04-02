@@ -153,3 +153,209 @@
 
 
 }
+
+
+
+/*===============CONTACTO==============*/
+
+
+.contacto {
+    background-color: $color-primario;
+    @include border();
+
+
+    &__formulario h2 {
+        margin: 10px;
+        margin-top: 10px;
+        font-size: $fuente-h2;
+        padding: 10px;
+        @include border();
+        text-align: center;
+        background-color: $color-contacto;
+    }
+
+    &__usuario {
+        padding: 15px;
+        margin: 10px;
+        @include border();
+        @include flex-box(row, space-between, center);
+        background-color: $color-contacto;
+
+        input {
+            width: 15rem;
+            padding: 15px;
+            border-radius: 20px;
+            @include border();
+        }
+    }
+
+
+
+    &__email {
+        width: 75vw;
+        padding: 15px;
+        margin: 10px;
+        @include border();
+        @include flex-box(row, space-between, center);
+        background-color: $color-contacto;
+
+        input {
+            width: 17rem;
+            padding: 15px;
+            border-radius: 20px;
+            border: black 2px groove;
+        }
+    }
+
+    &__contraseña {
+        padding: 15px;
+        margin: 10px;
+        @include border();
+        @include flex-box(row, space-between, center);
+        background-color: $color-contacto;
+
+        input {
+            width: 15rem;
+            padding: 15px;
+            border-radius: 20px;
+            @include border();
+        }
+    }
+
+
+    &__mensaje {
+        padding: 15px;
+        margin: 10px;
+        @include border();
+        @include flex-box(row, space-between, center);
+        background-color: $color-contacto;
+        width: 90%;
+
+        textarea {
+            padding: 10px;
+            border-radius: 20px;
+            @include border();
+        }
+
+    }
+
+    &__asuntos {
+        width: 70%;
+        padding: 10px;
+        margin: 10px;
+        @include border();
+        @include flex-box(row, space-between, center);
+        background-color: $color-contacto;
+
+        select {
+            width: 10rem;
+            padding: 15px;
+            border-radius: 20px;
+            @include border();
+        }
+    }
+
+
+    &__genero {
+        margin: 10px;
+        @include flex-box(row, space-between, center);
+        @include border();
+        background-color: $color-contacto;
+        padding: 20px;
+    }
+
+    &__novedades {
+        width: 45%;
+        margin: 10px;
+        padding: 20px;
+        align-items: center;
+        @include border();
+        background-color: $color-contacto;
+    }
+
+    &__enviar {
+        margin: 10px;
+        padding: 10px;
+        @include border();
+        background-color: $color-contacto;
+    }
+
+
+    #reset {
+        width: 15rem;
+        padding: 13px;
+        border-radius: 20px;
+        @include border();
+        animation-name: heartbeat;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    #submit {
+        width: 10rem;
+        padding: 13px;
+        border-radius: 20px;
+        @include border();
+        animation-name: heartbeat;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+}
+
+
+
+/*=======Vista Desktop======*/
+
+
+@media (min-width:1100px) {
+
+    .contacto {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+
+        &__formulario h2 {
+            width: 70%;
+            margin: 0;
+            margin-top: 2vw;
+            margin-left: 10px;
+        }
+
+
+        &__usuario {
+            width: 70%;
+        }
+
+        &__email {
+            width: 70vw;
+        }
+
+        &__mensaje {
+            width: 80vw;
+        }
+
+        &__asuntos {
+            width: 40vw;
+        }
+
+        &__genero {
+            width: 60vw;
+        }
+
+        &__novedades {
+            width: 40vw;
+            display: flex;
+            gap: 40px;
+        }
+
+        &__enviar {
+            width: 50%;
+            @include flex-box(row, space-around, center);
+
+        }
+
+    }
+}

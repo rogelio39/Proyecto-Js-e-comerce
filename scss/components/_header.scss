@@ -10,7 +10,7 @@
     box-shadow: 20px 0px 10px 10px black;
     margin-bottom: 2rem;
 
-    &:hover nav {
+    &__nav:hover {
         margin: 15px 0px 15px;
     }
 
@@ -20,17 +20,6 @@
     }
 
 
-}
-
-
-/*=======VERSION TABLET=========*/
-
-@media (min-width:760px) and (max-width:1099px) {
-
-    .index__encabezado {
-        @include flex-box(column, space-between, center);
-        gap: 12px;
-    }
 }
 
 
@@ -44,11 +33,58 @@
         top: 0;
         z-index: 4;
 
-        nav ul {
-            @include flex-box(row, space-between, center);
-            gap: 20px;
+        &__nav:hover {
+            margin: 15px 0px 15px;
         }
-    }
+    
+        ul {
+            @include flex-box(row, space-between, flex-start);
+            gap: 12px;
+        }
+}
 }
 
 
+
+
+
+/*=====================contacto==============*/
+
+
+.contacto__encabezado {
+    padding: 10px;
+    font-size: $fuente-encabezado;
+    @include flex-box (column, center, flex-start);
+    gap: 15px;
+    background-color: $color-contacto;
+    box-shadow: 0px 0px 15px black;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    hr {
+        margin: 0;
+        height: 1px;
+        color: black;
+    }
+
+    &:hover li {
+        margin: 15px 0px 15px;
+    }
+}
+
+/*=======Vista Desktop======*/
+
+
+@media (min-width:1100px) {
+
+    .contacto__encabezado {
+        padding: 15px;
+        @include flex-box(row, space-around, center);
+
+
+        hr {
+            display: none;
+        }
+    }
+}
