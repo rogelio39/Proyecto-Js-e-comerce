@@ -795,12 +795,18 @@ a {
   }
   .index__budines {
     grid-area: budines;
-    width: 50%;
+  }
+  .index__budines img {
+    object-fit: fill;
+    width: 30vw;
   }
   .index__alfajores {
     grid-area: alfajores;
-    width: 50%;
     margin-bottom: 10rem;
+  }
+  .index__alfajores img {
+    width: 30vw;
+    object-fit: fill;
   }
   .contacto {
     background-attachment: fixed;

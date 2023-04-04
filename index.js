@@ -164,12 +164,7 @@ finalizarBtnNode.onclick = () => {
 
 
 
-
-
-
-
 //==============FORMULARIO CONTACTO========================
-
 
 const formulario = document.getElementById("formulario");
 
@@ -179,6 +174,9 @@ const inputEmail = document.getElementById("usuario__email");
 
 const inputContraseña = document.getElementById("usuario__contraseña");
 
+const titulo = document.getElementById('tituloForm');
+
+//evento click en boton submit
 formulario.onsubmit = (e) => {
     e.preventDefault();
     const infoUsuario = {
@@ -187,7 +185,17 @@ formulario.onsubmit = (e) => {
     }
 
     localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario));
+    formulario.remove();
+    titulo.innerText = `Bienvenido ${infoUsuario.nombre}`
 }
 
 
+//mirar si en stirage existe infoUsuario
 
+const infoUsuario = localStorage.getItem('infoUsuario'); 
+const infoUsuarioJS = JSON.parse(infoUsuario);
+
+if(infoUsuario){
+    formulario.remove();
+    titulo.innerText = `Bienvenido ${infoUsuarioJS.nombre}`
+}

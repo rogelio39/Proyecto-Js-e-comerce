@@ -283,18 +283,27 @@
         overflow: auto;
 
 
+
     }
 
     &__budines {
         grid-area: budines;
-        width: 50%;
+
+        img{
+            object-fit: fill;
+            width: 30vw;
+        }
 
     }
 
     &__alfajores{
         grid-area: alfajores;
-        width: 50%;
         margin-bottom: 10rem;
+
+        img{
+            width: 30vw;
+            object-fit: fill;
+        }
     }
 }
 
