@@ -54,20 +54,21 @@ function checkUser() {
 
 
 class Producto {
-    constructor(id, nombre, precio, imagen) {
+    constructor(id, nombre, precio, imagen, stock) {
         this.id = id,
-        this.nombre = nombre,
-        this.precio = precio,
-        this.imagen = imagen
+            this.nombre = nombre,
+            this.precio = precio,
+            this.imagen = imagen,
+            this.stock = stock
     }
 }
 
 //creamos 4 productos
 
-const panIntegral = new Producto(1, 'Pan integral', 600, `./img/panIntegral.jfif`);
-const panBlanco = new Producto(2, 'Pan blanco', 550, './img/panBlanco.jfif');
-const budines = new Producto(3, 'Budines', 800, './img/budines.jfif');
-const alfajores = new Producto(4, 'Alfajores', 150,'./img/alfajores.jfif');
+const panIntegral = new Producto(1, 'Pan integral', 600, `./img/panIntegral.jfif`, 20);
+const panBlanco = new Producto(2, 'Pan blanco', 550, './img/panBlanco.jfif', 10);
+const budines = new Producto(3, 'Budines', 800, './img/budines.jfif', 5);
+const alfajores = new Producto(4, 'Alfajores', 150, './img/alfajores.jfif', 10);
 
 //Guardamos los productos en un arreglo
 
@@ -145,13 +146,15 @@ btnNode.onclick = () => {
 
 const carrito = [];
 
+//RECUPERAMOS el div index__productos del html
+
 const indexProductos = document.getElementById('index__productos');
 
-//FORMA MAS REDUCIDA DE HACERLO EN VEZ DE AGREGAR DE NUEVO EL divProductos.innerHTML solo ponemos un mas.
+//Se realiza un forEach de productos y por cada producto se crea unas card y se agrega al DOM. Siempre manteniendo lo que ya esta asi se van concatenando y no sobreescribiendo.
 
 productos.forEach((prod) => {
     indexProductos.innerHTML +=
-`<div class='index__producto'>
+        `<div class='index__producto'>
     <div class='card-body'>
         <h2 class ='card-title'>${prod.nombre}</h2>
         <p class='card-text'>Precio: $${prod.precio}</p>
@@ -163,12 +166,13 @@ productos.forEach((prod) => {
 
 
 
+//Se recupera cada uno de los botones agregar
 
 const botonesAgregar = document.querySelectorAll('.btn-primary');
 
+//se hace un forEach de cada boton y por cada boton encontrado se escucha el atento onclick, ante ese evento se busca el producto cuyo id sea igual al del boton.id y se crea un prodcarrito donde se guardara nombre, precio y cantidad del producto. luego si el producto no existe lo suma al carrito con push, si si existe solo aumenta la propiedad cantidad dentro de cada prodCarrito.
 
-
-arrayBotones.forEach((boton) => {
+botonesAgregar.forEach((boton) => {
     boton.onclick = () => {
         const producto = productos.find(p => p.id === parseInt(boton.id));
         const prodCarrito = {
@@ -189,18 +193,47 @@ arrayBotones.forEach((boton) => {
 
 
 
-//finalizar compra
+//boton finalizar compra
 
-const finalizarBtnNode = document.querySelector('#finalizarCompra');
 
-finalizarBtnNode.onclick = () => {
+//primero recuperamos el boton de finalizar compra:
+
+const botonFinalizar = document.querySelector('#finalizarCompra');
+
+//recuperamos las tablas
+
+const thead = document.querySelector('#thead');
+const tbody = document.querySelector('#tbody');
+const total = comument.querySelector('#parrafoTotalCompra');
+
+botonFinalizar.onclick = () => {
+    indexProductos.remove();
+    botonFinalizar.remove();
+
+    thead.innerHTML = `
+    <tr id="thead">
+        <th>PRODUCTO</th>
+        <th>CANTIDAD</th>
+        <th>TOTAL</th>
+    </tr>`
+
     let totalCompra = 0;
-    carrito.forEach((producto) => {
-        totalCompra = totalCompra + producto.precio;
-    })
-    alert(`El total de tu compra es ${totalCompra}`);
-};
 
+
+    carrito.forEach(prod => {
+        totalCompra+= prod.cantidad*prod.precio;
+        tbody.innerHTML += `
+    <tr id="tbody">
+        <td>${prod.nombre}</td>
+        <td>${prod.cantidad}</td>
+        <td>${prod.cantidad * prod.precio}</td>
+    </tr>
+`
+        total.innetText = `El total de tu compra es: ${totalCompra} `
+
+    });
+
+}
 
 
 
