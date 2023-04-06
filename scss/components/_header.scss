@@ -10,17 +10,24 @@
     box-shadow: 20px 0px 10px 10px black;
     margin-bottom: 2rem;
 
-    &__nav:hover {
-        margin: 15px 0px 15px;
-    }
 
-    ul {
-        @include flex-box(column, space-between, flex-start);
-        gap: 12px;
-    }
+    &__nav {
+        width: 100%;
 
-
+        ul {
+            @include flex-box(row, space-between, flex-start);
+        }
 }
+}
+
+    .compra{
+        @include flex-box(row, space-between, center);
+    }
+
+
+
+
+
 
 
 /*======VERSION DESKTOP==========*/
@@ -36,12 +43,12 @@
         &__nav:hover {
             margin: 15px 0px 15px;
         }
-    
+
         ul {
-            @include flex-box(row, space-between, flex-start);
+            @include flex-box(row, space-between, center);
             gap: 12px;
         }
-}
+    }
 }
 
 
