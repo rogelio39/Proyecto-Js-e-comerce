@@ -487,15 +487,15 @@ a {
   border-color: black;
   border-width: width;
   border-style: groove;
-  /* ======CUERPO PRINCIPAL===== */
 }
-.index__productos {
+
+/* ======CUERPO PRINCIPAL===== */
+#productos {
   border-color: black;
   border-width: width;
   border-style: groove;
   margin: 10px;
   background-color: rgba(233, 221, 221, 0.868);
-  font-size: 1.4rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -505,91 +505,26 @@ a {
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
 }
-.index__productos .btn {
-  width: 80%;
-  border-radius: 20px;
-  padding: 10px;
-  margin: 5px;
-  background-color: white;
-  background-color: rgba(70, 140, 214, 0.71);
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-  transition-delay: 0.1s;
-  animation-name: heartbeat;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-.index__productos h2 {
-  font-size: 1.4rem;
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-}
-.index__productos div {
+#productos__producto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   border-color: black;
   border-width: width;
   border-style: groove;
   width: 100%;
   background-color: rgba(128, 128, 128, 0.921);
 }
-.index__productos div img {
+#productos__producto h2 {
+  font-size: 1.4rem;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.card-body img {
   height: 25vh;
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-  padding: 3px;
-}
-.index__panes {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-}
-.index__integral {
-  position: sticky;
-  top: 200px;
-  z-index: 1;
-}
-.index__moldeBlanco {
-  position: sticky;
-  top: 95px;
-  z-index: 2;
-}
-.index__budines {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-}
-.index__budines img {
-  width: 90%;
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-  padding: 3px;
-}
-.index__alfajores {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  border-color: black;
-  border-width: width;
-  border-style: groove;
-}
-.index__alfajores img {
-  width: 90%;
   border-color: black;
   border-width: width;
   border-style: groove;
@@ -770,43 +705,28 @@ a {
 }
 
 @media (min-width: 1100px) {
-  .index {
-    background-color: bisque;
-  }
-  .index__productos {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 33% 33% 33%;
-    grid-template-areas: "panes" "budines" "alfajores";
-    margin-bottom: 10rem;
-  }
-  .index__panes {
-    grid-area: panes;
-    width: 99%;
-    margin-right: 5vw;
-    gap: 2rem;
-    padding: 10px;
-    margin: 10px;
+  #productos {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    overflow: auto;
+    align-items: flex-start;
   }
-  .index__budines {
-    grid-area: budines;
+  #productos__producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
   }
-  .index__budines img {
-    object-fit: fill;
-    width: 30vw;
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
   }
-  .index__alfajores {
-    grid-area: alfajores;
-    margin-bottom: 10rem;
-  }
-  .index__alfajores img {
-    width: 30vw;
-    object-fit: fill;
+  .card-body p {
+    border: black 2px solid;
+    padding: 5px;
   }
   .contacto {
     background-attachment: fixed;
