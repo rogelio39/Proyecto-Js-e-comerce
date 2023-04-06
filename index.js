@@ -154,7 +154,7 @@ productos.forEach((prod) => {
 `<div class='index__producto'>
     <div class='card-body'>
         <h2 class ='card-title'>${prod.nombre}</h2>
-        <p class='card-text'>$${prod.precio}</p>
+        <p class='card-text'>Precio: $${prod.precio}</p>
         <img src="${prod.imagen}" alt="">
         <button id=${prod.id} class='btn btn-primary'>AGREGAR</button>
     </div>

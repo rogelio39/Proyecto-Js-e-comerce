@@ -44,6 +44,14 @@
         @include border();
         padding: 3px;
     }
+
+    p{
+        font-weight: 700;
+        width: max-content;
+        border: black 2px solid;
+        padding: 5px;
+        background-color: rgb(81, 167, 204);
+    }
 }
 
 
@@ -215,11 +223,6 @@
     .card-body{
         @include flex-box(column, space-between, flex-start);
         gap: 10px;
-
-        p{
-            border: black 2px solid;
-            padding: 5px;
-        }
     }
 
     .contacto {

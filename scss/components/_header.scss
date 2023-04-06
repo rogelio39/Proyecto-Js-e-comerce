@@ -17,15 +17,13 @@
         ul {
             @include flex-box(row, space-between, flex-start);
         }
-}
-}
-
-    .compra{
-        @include flex-box(row, space-between, center);
     }
+}
 
 
-
+.compra {
+    @include flex-box(row, space-between, center);
+}
 
 
 

@@ -536,6 +536,13 @@ a {
   border-style: groove;
   padding: 3px;
 }
+.card-body p {
+  font-weight: 700;
+  width: max-content;
+  border: black 2px solid;
+  padding: 5px;
+  background-color: rgb(81, 167, 204);
+}
 
 /*===============CONTACTO==============*/
 .contacto {
@@ -729,10 +736,6 @@ a {
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
-  }
-  .card-body p {
-    border: black 2px solid;
-    padding: 5px;
   }
   .contacto {
     background-attachment: fixed;
