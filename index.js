@@ -233,7 +233,7 @@ botonFinalizar.onclick = () => {
         <td>${prod.cantidad * prod.precio}</td>
     </tr>
     `
-        total.innetText = `El total de tu compra es: ${ totalCompra } `
+        total.innerText = `El total de tu compra es: ${ totalCompra } `
 
     });
 
