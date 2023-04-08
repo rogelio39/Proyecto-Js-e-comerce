@@ -176,7 +176,8 @@ botonesAgregar.forEach((boton) => {
     boton.onclick = () => {
         const producto = productos.find(p => p.id === parseInt(boton.id));
         const prodCarrito = {
-            id: producto.nombre,
+            id: producto.id,
+            nombre: producto.nombre,
             precio: producto.precio,
             cantidad: 1
         }
@@ -204,18 +205,19 @@ const botonFinalizar = document.querySelector('#finalizarCompra');
 
 const thead = document.querySelector('#thead');
 const tbody = document.querySelector('#tbody');
-const total = comument.querySelector('#parrafoTotalCompra');
+const total = document.querySelector('#parrafoTotalCompra');
 
 botonFinalizar.onclick = () => {
     indexProductos.remove();
     botonFinalizar.remove();
 
     thead.innerHTML = `
-    <tr id="thead">
-        <th>PRODUCTO</th>
-        <th>CANTIDAD</th>
-        <th>TOTAL</th>
+    <tr>
+        <th scope="col">PRODUCTO</th>
+        <th scope="col">CANTIDAD</th>
+        <th scope="col">TOTAL</th>
     </tr>`
+
 
     let totalCompra = 0;
 
@@ -223,13 +225,15 @@ botonFinalizar.onclick = () => {
     carrito.forEach(prod => {
         totalCompra+= prod.cantidad*prod.precio;
         tbody.innerHTML += `
-    <tr id="tbody">
-        <td>${prod.nombre}</td>
+
+
+    <tr>
+        <td>${ prod.nombre }</td>
         <td>${prod.cantidad}</td>
         <td>${prod.cantidad * prod.precio}</td>
     </tr>
-`
-        total.innetText = `El total de tu compra es: ${totalCompra} `
+    `
+        total.innetText = `El total de tu compra es: ${ totalCompra } `
 
     });
 
@@ -259,7 +263,7 @@ formulario.onsubmit = (e) => {
 
     localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario));
     formulario.remove();
-    titulo.innerText = `Bienvenido ${infoUsuario.nombre}`
+    titulo.innerText = `Bienvenido ${ infoUsuario.nombre } `
 }
 
 
@@ -270,7 +274,7 @@ const infoUsuarioJS = JSON.parse(infoUsuario);
 
 if (infoUsuario) {
     formulario.remove();
-    titulo.innerText = `Bienvenido ${infoUsuarioJS.nombre}`
+    titulo.innerText = `Bienvenido ${ infoUsuarioJS.nombre } `
 }
 
 
