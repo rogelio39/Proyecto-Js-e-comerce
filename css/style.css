@@ -495,6 +495,10 @@ a {
   border-style: groove;
 }
 
+#listaProds {
+  width: 10rem;
+}
+
 /* ======CUERPO PRINCIPAL===== */
 #productos {
   border-color: black;

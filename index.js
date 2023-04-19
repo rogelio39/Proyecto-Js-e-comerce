@@ -27,13 +27,13 @@ let usuarioNuevo3
 function checkUser() {
     let checkNombre = prompt("Ingrese nombre de usuario");
     while (usuarioNuevo3?.nombre !== checkNombre) {
-        swal.fire("Usuario incorrecto. Por favor intente con un usuario correcto");
+        prompt("Usuario incorrecto. Por favor intente con un usuario correcto");
         checkNombre = prompt("Ingrese nombre de usuario");
     }
 
     let checkEmail = prompt("ingrese email: ");
     while (usuarioNuevo3?.email !== checkEmail) {
-        Swal.fire('Email incorrecto. Intento nuevamente')
+        prompt('Email incorrecto. Intento nuevamente')
         checkEmail = prompt("ingrese email: ");
     }
 
@@ -63,20 +63,111 @@ class Producto {
 
 const carrito = [];
 
+//recuperando boton listaprods
+
+const selectNode = document.querySelector('#listaProds');
+
+
+//RECUPERAMOS el div index__productos del html
+
+const indexProductos = document.getElementById('index__productos');
+
+const botonesAgregar = document.querySelectorAll('.btn-primary');
+
+//agregando productos utilizando async y una appi
+
+//funcion que ejecute el fetch
+
+const fetchProducts = async () => {
+
+    const productosApi = await fetch(`https://fakestoreapi.com/products`);
+    const productosJSON = await productosApi.json();
+
+    return productosJSON;
+}
+
+
+
+//funcion que devuelva los productos de la API
+
+
+const fetchOneProduct = async (id) => {
+    const productoApi = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const productoJSON = await productoApi.json();
+    return productoJSON;
+
+}
+
+
+//funcion que renderize los productos
+
+const renderProducts = async () => {
+    const productosApi = await fetchProducts();
+
+    productosApi.forEach((prod) => {
+
+        const { id, title, price, image } = prod;
+
+        indexProductos.innerHTML += `
+<div class='index__producto'>
+    <div class='card-body'>
+        <h2 class ='card-title'>${title}</h2>
+        <p class='card-text'>Precio: $${price}</p>
+        <img src="${image}" alt="">
+        <button id=${id} onclick="agregarProductoApi(${id})" class='btn btn-primary'>AGREGAR</button>
+    </div>
+</div>`
+
+
+        //agregar productos de la Api a lista prods
+
+        const optionProd = document.createElement('option');
+        optionProd.innerText = `${title}: ${price}`;
+        optionProd.setAttribute(`id`, `${id}`);
+        selectNode.append(optionProd);
+
+    })
+
+}
+
+
+renderProducts();
+
+
+
+
+const agregarProductoApi = async (id) => {
+    const productoCarritoApi = await fetchOneProduct(id);
+    const busquedaProductoCarrito = carrito.find((prod) => prod.id === productoCarritoApi.id)
+    if (!busquedaProductoCarrito) {
+        carrito.push({
+            id: productoCarritoApi.id,
+            title: productoCarritoApi.title,
+            cantidad: 1,
+            price: productoCarritoApi.price
+        })
+    } else {
+        busquedaProductoCarrito.cantidad++;
+    }
+}
+
+
 //creamos 4 productos
 
-const panIntegral = new Producto(21, 'Pan integral', 600, `./img/panIntegral.jfif`, 20);
-const panBlanco = new Producto(22, 'Pan blanco', 550, './img/panBlanco.jfif', 10);
-const budines = new Producto(23, 'Budines', 800, './img/budines.jfif', 5);
-const alfajores = new Producto(24, 'Alfajores', 150, './img/alfajores.jfif', 10);
+const panIntegral = new Producto(21, 'Pan integral', 2.99, `./img/panIntegral.jfif`, 20);
+const panBlanco = new Producto(22, 'Pan blanco', 1.50, './img/panBlanco.jfif', 10);
+const budines = new Producto(23, 'Budines', 3.22, './img/budines.jfif', 5);
+const alfajores = new Producto(24, 'Alfajores', 2.30, './img/alfajores.jfif', 10);
 
 //Guardamos los productos en un arreglo
 
-const productos = [panIntegral, panBlanco, budines, alfajores];
+
+const productos = [];
+
+productos.push(panIntegral, panBlanco, budines, alfajores);
 
 //agregar productos al select desde js, se puede hacer desde el html pero si mañana son 1 millon de productos hacer eso manual es muchisimo.
 
-const selectNode = document.querySelector('#listaProds');
 
 productos.forEach((prod) => {
     const optionProd = document.createElement('option');
@@ -90,7 +181,7 @@ productos.forEach((prod) => {
 //boton añadir producto
 
 const btnNode = document.querySelector(`#añadirProd`);
-
+//modificar luego asi los productos de la appi tambien puedan seleccionarse desde aqui
 btnNode.onclick = () => {
 
     if (usuarioNuevo3) {
@@ -108,7 +199,8 @@ btnNode.onclick = () => {
         !prodEnCarrito ? carrito.push(prodCarrito) : prodEnCarrito.cantidad++;
 
     } else if (!usuarioNuevo3) {
-        swal.fire("Debe crearse un usuario")
+        alert("Debe crearse un usuario");
+
         const crearseUsuario = prompt(`Desea crearselo?
         
         -Si
@@ -117,7 +209,7 @@ btnNode.onclick = () => {
         `);
 
         if (crearseUsuario === "no") {
-            crearseUsuario = prompt("Esta bien, puede continuar sin un usuario ");
+            swal.fire("Esta bien, puede continuar sin un usuario ");
         } else if (crearseUsuario === "si") {
 
             const nombre = prompt("Ingrese nombre de usuario")
@@ -125,8 +217,7 @@ btnNode.onclick = () => {
             const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
 
             while (contraseña < 10000000) {
-                swal.fire({
-                    title: "Contraseña demasiado corta. Por favor ingrese una contraseña mas larga"})
+                swal.fire("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga")
                 contraseña = parseInt(prompt("ingrese contraseña: "));
             }
 
@@ -135,8 +226,7 @@ btnNode.onclick = () => {
 
             usuarioNuevo3 = new Usuario(nombre, email, contraseña);
 
-            swal.fire({
-                title: "Usuario creado con exito."})
+            swal.fire("Usuario creado con exito.")
             swal.fire("Ingrese ahora su cuenta")
 
             //se llama a la funcion checkUsersi
@@ -146,7 +236,8 @@ btnNode.onclick = () => {
 
 
             swal.fire({
-                title: `Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `})
+                title: `Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `
+            })
         } else {
             swal.fire("Entrada invalida");
         }
@@ -164,14 +255,6 @@ btnNode.onclick = () => {
 
 
 
-
-
-
-
-//RECUPERAMOS el div index__productos del html
-
-const indexProductos = document.getElementById('index__productos');
-
 //Se realiza un forEach de productos y por cada producto se crea unas card y se agrega al DOM. Siempre manteniendo lo que ya esta asi se van concatenando y no sobreescribiendo.
 
 productos.forEach((prod) => {
@@ -188,17 +271,6 @@ productos.forEach((prod) => {
 
 
 
-//agregando productos utilizando async y una appi
-
-//funcion que ejecute el fetch
-
-
-
-
-
-//Se recupera cada uno de los botones agregar
-
-const botonesAgregar = document.querySelectorAll('.btn-primary');
 
 //se hace un forEach de cada boton y por cada boton encontrado se escucha el atento onclick, ante ese evento se busca el producto cuyo id sea igual al del boton.id y se crea un prodcarrito donde se guardara nombre, precio y cantidad del producto. luego si el producto no existe lo suma al carrito con push, si si existe solo aumenta la propiedad cantidad dentro de cada prodCarrito.
 
@@ -218,9 +290,6 @@ botonesAgregar.forEach((boton) => {
     }
 
 })
-
-
-
 
 
 
@@ -267,6 +336,7 @@ botonFinalizar.onclick = () => {
 
 }
 
+console.log(carrito)
 
 
 //==============FORMULARIO CONTACTO========================
