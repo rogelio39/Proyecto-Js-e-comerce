@@ -1,8 +1,3 @@
-
-
-
-
-
 // //se crea la clase usuario para que cada usuario que se cree lo haga bajo estos parametros.
 class Usuario {
     constructor(nombre, email, contraseña) {
@@ -32,19 +27,19 @@ let usuarioNuevo3
 function checkUser() {
     let checkNombre = prompt("Ingrese nombre de usuario");
     while (usuarioNuevo3?.nombre !== checkNombre) {
-        alert("Usuario incorrecto. Por favor intente con un usuario correcto");
+        swal.fire("Usuario incorrecto. Por favor intente con un usuario correcto");
         checkNombre = prompt("Ingrese nombre de usuario");
     }
 
     let checkEmail = prompt("ingrese email: ");
     while (usuarioNuevo3?.email !== checkEmail) {
-        alert("Email incorrecto. Intento nuevamente")
+        Swal.fire('Email incorrecto. Intento nuevamente')
         checkEmail = prompt("ingrese email: ");
     }
 
     let checkPass = parseInt(prompt("ingrese contraseña: "));
     while (usuarioNuevo3?.contraseña !== checkPass) {
-        alert("Contraseña incorrecta. Intenta nuevamente")
+        swal.fire("Contraseña incorrecta. Intenta nuevamente")
         checkPass = parseInt(prompt("ingrese contraseña: "));
     }
 
@@ -54,11 +49,11 @@ function checkUser() {
 
 
 class Producto {
-    constructor(id, nombre, precio, imagen, stock) {
+    constructor(id, title, price, image, stock) {
         this.id = id,
-            this.nombre = nombre,
-            this.precio = precio,
-            this.imagen = imagen,
+            this.title = title,
+            this.price = price,
+            this.image = image,
             this.stock = stock
     }
 }
@@ -70,10 +65,10 @@ const carrito = [];
 
 //creamos 4 productos
 
-const panIntegral = new Producto(1, 'Pan integral', 600, `./img/panIntegral.jfif`, 20);
-const panBlanco = new Producto(2, 'Pan blanco', 550, './img/panBlanco.jfif', 10);
-const budines = new Producto(3, 'Budines', 800, './img/budines.jfif', 5);
-const alfajores = new Producto(4, 'Alfajores', 150, './img/alfajores.jfif', 10);
+const panIntegral = new Producto(21, 'Pan integral', 600, `./img/panIntegral.jfif`, 20);
+const panBlanco = new Producto(22, 'Pan blanco', 550, './img/panBlanco.jfif', 10);
+const budines = new Producto(23, 'Budines', 800, './img/budines.jfif', 5);
+const alfajores = new Producto(24, 'Alfajores', 150, './img/alfajores.jfif', 10);
 
 //Guardamos los productos en un arreglo
 
@@ -86,7 +81,7 @@ const selectNode = document.querySelector('#listaProds');
 
 productos.forEach((prod) => {
     const optionProd = document.createElement('option');
-    optionProd.innerText = `${prod?.nombre}: ${prod?.precio}`;
+    optionProd.innerText = `${prod?.title}: ${prod?.price}`;
     optionProd.setAttribute(`id`, `${prod?.id}`);
     selectNode.append(optionProd);
 }
@@ -104,12 +99,17 @@ btnNode.onclick = () => {
         const prodSeleccionado = productos[index];
         const prodCarrito = {
             id: prodSeleccionado.id,
-            nombre: prodSeleccionado.nombre,
-            precio: prodSeleccionado.precio,
+            title: prodSeleccionado.title,
+            price: prodSeleccionado.price,
             cantidad: 1
         }
+
+        const prodEnCarrito = carrito.find(prod => prod.id === prodCarrito.id)
+
+        !prodEnCarrito ? carrito.push(prodCarrito) : prodEnCarrito.cantidad++;
+
     } else if (!usuarioNuevo3) {
-        alert("Debe crearse un usuario")
+        swal.fire("Debe crearse un usuario")
         const crearseUsuario = prompt(`Desea crearselo?
         
         -Si
@@ -126,7 +126,8 @@ btnNode.onclick = () => {
             const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
 
             while (contraseña < 10000000) {
-                alert("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga");
+                swal.fire({
+                    title: "Contraseña demasiado corta. Por favor ingrese una contraseña mas larga"})
                 contraseña = parseInt(prompt("ingrese contraseña: "));
             }
 
@@ -135,8 +136,9 @@ btnNode.onclick = () => {
 
             usuarioNuevo3 = new Usuario(nombre, email, contraseña);
 
-            alert("Usuario creado con exito.")
-            alert("Ingrese ahora su cuenta")
+            swal.fire({
+                title: "Usuario creado con exito."})
+            swal.fire("Ingrese ahora su cuenta")
 
             //se llama a la funcion checkUsersi
             checkUser();
@@ -144,9 +146,10 @@ btnNode.onclick = () => {
             users.push(usuarioNuevo3)
 
 
-            alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
+            swal.fire({
+                title: `Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `})
         } else {
-            alert("Entrada invalida")
+            swal.fire("Entrada invalida");
         }
 
 
@@ -176,37 +179,12 @@ productos.forEach((prod) => {
     indexProductos.innerHTML +=
         `<div class='index__producto'>
     <div class='card-body'>
-        <h2 class ='card-title'>${prod?.nombre}</h2>
-        <p class='card-text'>Precio: $${prod?.precio}</p>
-        <img src="${prod?.imagen}" alt="">
+        <h2 class ='card-title'>${prod?.title}</h2>
+        <p class='card-text'>Precio: $${prod?.price}</p>
+        <img src="${prod?.image}" alt="">
         <button id=${prod?.id} class='btn btn-primary'>AGREGAR</button>
     </div>
 </div>`
-})
-
-
-
-//Se recupera cada uno de los botones agregar
-
-const botonesAgregar = document.querySelectorAll('.btn-primary');
-
-//se hace un forEach de cada boton y por cada boton encontrado se escucha el atento onclick, ante ese evento se busca el producto cuyo id sea igual al del boton.id y se crea un prodcarrito donde se guardara nombre, precio y cantidad del producto. luego si el producto no existe lo suma al carrito con push, si si existe solo aumenta la propiedad cantidad dentro de cada prodCarrito.
-
-botonesAgregar.forEach((boton) => {
-    boton.onclick = () => {
-        const producto = productos.find(p => p.id === parseInt(boton.id));
-        const prodCarrito = {
-            id: producto.id,
-            nombre: producto.nombre,
-            precio: producto.precio,
-            cantidad: 1
-        }
-        const prodEnCarrito = carrito.find(prod => prod.id === prodCarrito.id)
-
-        !prodEnCarrito ? carrito.push(prodCarrito) : prodEnCarrito.cantidad++;
-
-    }
-
 })
 
 
@@ -227,21 +205,21 @@ const fetchProducts = async () => {
 //funcion que renderize los productos
 
 const renderProducts = async() => {
-	const productosDeApi = await fetchProducts();
+	const productosApi = await fetchProducts();
 	
-	productosDeApi.forEach((prod) => {
+	productosApi.forEach((prod) => {
 
-		const {id, title, price, category, image} = prod;
+		const {id, title, price, image} = prod;
 
-        
+        productos.push(prod);
 
 	indexProductos.innerHTML += `
 <div class='index__producto'>
     <div class='card-body'>
-        <h2 class ='card-title'>${prod?.title}</h2>
-        <p class='card-text'>Precio: $${prod?.price}</p>
-        <img src="${prod?.image}" alt="">
-        <button id=${prod?.id} class='btn btn-primary'>AGREGAR</button>
+        <h2 class ='card-title'>${title}</h2>
+        <p class='card-text'>Precio: $${price}</p>
+        <img src="${image}" alt="">
+        <button id=${id} class='btn btn-primary'>AGREGAR</button>
     </div>
 </div>`
 
@@ -251,6 +229,33 @@ const renderProducts = async() => {
 
 
 renderProducts();
+
+
+//Se recupera cada uno de los botones agregar
+
+const botonesAgregar = document.querySelectorAll('.btn-primary');
+
+//se hace un forEach de cada boton y por cada boton encontrado se escucha el atento onclick, ante ese evento se busca el producto cuyo id sea igual al del boton.id y se crea un prodcarrito donde se guardara nombre, precio y cantidad del producto. luego si el producto no existe lo suma al carrito con push, si si existe solo aumenta la propiedad cantidad dentro de cada prodCarrito.
+
+botonesAgregar.forEach((boton) => {
+    boton.onclick = () => {
+        const producto = productos.find(p => p.id === parseInt(boton.id));
+        const prodCarrito = {
+            id: producto.id,
+            title: producto.title,
+            price: producto.price,
+            cantidad: 1
+        }
+        const prodEnCarrito = carrito.find(prod => prod.id === prodCarrito.id)
+
+        !prodEnCarrito ? carrito.push(prodCarrito) : prodCarrito.cantidad++;
+
+    }
+
+})
+
+
+
 
 
 
@@ -283,14 +288,12 @@ botonFinalizar.onclick = () => {
 
 
     carrito.forEach((prod) => {
-        totalCompra += prod.cantidad * prod.precio;
+        totalCompra += prod.cantidad * prod.price;
         tbody.innerHTML += `
-
-
     <tr>
-        <td>${prod?.nombre}</td>
+        <td>${prod?.title}</td>
         <td>${prod?.cantidad}</td>
-        <td>${prod?.cantidad * prod.precio}</td>
+        <td>${prod?.cantidad * prod.price}</td>
     </tr>
     `
         total.innerText = `El total de tu compra es: ${totalCompra} `
@@ -336,7 +339,5 @@ if (infoUsuario) {
     formulario.remove();
     titulo.innerText = `Bienvenido ${infoUsuarioJS?.nombre} `
 }
-
-
 
 
