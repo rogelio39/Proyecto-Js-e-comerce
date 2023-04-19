@@ -31,19 +31,19 @@ let usuarioNuevo3
 //funcion que chequea si los datos ingresados para la creacion de un nuevo usuario coinciden al momento de ingresar a la cuenta. Si coinciden te da la bienvenida y sino te da usuario incorrecto y te pide ingresar nuevamente los datos.
 function checkUser() {
     let checkNombre = prompt("Ingrese nombre de usuario");
-    while (usuarioNuevo3.nombre !== checkNombre) {
+    while (usuarioNuevo3?.nombre !== checkNombre) {
         alert("Usuario incorrecto. Por favor intente con un usuario correcto");
         checkNombre = prompt("Ingrese nombre de usuario");
     }
 
     let checkEmail = prompt("ingrese email: ");
-    while (usuarioNuevo3.email !== checkEmail) {
+    while (usuarioNuevo3?.email !== checkEmail) {
         alert("Email incorrecto. Intento nuevamente")
         checkEmail = prompt("ingrese email: ");
     }
 
     let checkPass = parseInt(prompt("ingrese contraseña: "));
-    while (usuarioNuevo3.contraseña !== checkPass) {
+    while (usuarioNuevo3?.contraseña !== checkPass) {
         alert("Contraseña incorrecta. Intenta nuevamente")
         checkPass = parseInt(prompt("ingrese contraseña: "));
     }
@@ -63,6 +63,11 @@ class Producto {
     }
 }
 
+
+//carrito
+
+const carrito = [];
+
 //creamos 4 productos
 
 const panIntegral = new Producto(1, 'Pan integral', 600, `./img/panIntegral.jfif`, 20);
@@ -81,8 +86,8 @@ const selectNode = document.querySelector('#listaProds');
 
 productos.forEach((prod) => {
     const optionProd = document.createElement('option');
-    optionProd.innerText = `${prod.nombre}: ${prod.precio}`;
-    optionProd.setAttribute(`id`, `${prod.id}`);
+    optionProd.innerText = `${prod?.nombre}: ${prod?.precio}`;
+    optionProd.setAttribute(`id`, `${prod?.id}`);
     selectNode.append(optionProd);
 }
 );
@@ -94,57 +99,72 @@ const btnNode = document.querySelector(`#añadirProd`);
 
 btnNode.onclick = () => {
 
-    alert("Debe crearse un usuario")
-    const crearseUsuario = prompt(`Desea crearselo?
-    
-    -Si
-    -No
-    
-    `);
+    if (usuarioNuevo3) {
+        const index = selectNode.selectedIndex;
+        const prodSeleccionado = productos[index];
+        const prodCarrito = {
+            id: prodSeleccionado.id,
+            nombre: prodSeleccionado.nombre,
+            precio: prodSeleccionado.precio,
+            cantidad: 1
+        }
+    } else if (!usuarioNuevo3) {
+        alert("Debe crearse un usuario")
+        const crearseUsuario = prompt(`Desea crearselo?
+        
+        -Si
+        -No
+        
+        `);
 
-    //se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
+        if (crearseUsuario === "no") {
+            crearseUsuario = prompt("Esta bien, puede continuar sin un usuario ");
+        } else if (crearseUsuario === "si") {
 
-    if (crearseUsuario === "no") {
-        crearseUsuario = prompt("Esta bien, puede continuar sin un usuario ");
-    } else if (crearseUsuario === "si") {
+            const nombre = prompt("Ingrese nombre de usuario")
+            const email = prompt("ingrese email: ")
+            const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
 
-        const nombre = prompt("Ingrese nombre de usuario")
-        const email = prompt("ingrese email: ")
-        const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
+            while (contraseña < 10000000) {
+                alert("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga");
+                contraseña = parseInt(prompt("ingrese contraseña: "));
+            }
 
-        while (contraseña < 10000000) {
-            alert("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga");
-            contraseña = parseInt(prompt("ingrese contraseña: "));
+
+            //se crea un nuevo usuario
+
+            usuarioNuevo3 = new Usuario(nombre, email, contraseña);
+
+            alert("Usuario creado con exito.")
+            alert("Ingrese ahora su cuenta")
+
+            //se llama a la funcion checkUsersi
+            checkUser();
+
+            users.push(usuarioNuevo3)
+
+
+            alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
+        } else {
+            alert("Entrada invalida")
         }
 
 
-        //se crea un nuevo usuario
 
-        usuarioNuevo3 = new Usuario(nombre, email, contraseña);
-
-        alert("Usuario creado con exito.")
-        alert("Ingrese ahora su cuenta")
-
-        //se llama a la funcion checkUsersi
-        checkUser();
-
-        users.push(usuarioNuevo3)
-
-
-        alert(`Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `)
-    } else {
-        alert("Entrada invalida")
     }
 
+    //se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
 
-    const index = selectNode.selectedIndex;
-    const prodSeleccionado = productos[index];
-    carrito.push(prodSeleccionado);
+
+
+
 };
 
-//carrito
 
-const carrito = [];
+
+
+
+
 
 //RECUPERAMOS el div index__productos del html
 
@@ -156,10 +176,10 @@ productos.forEach((prod) => {
     indexProductos.innerHTML +=
         `<div class='index__producto'>
     <div class='card-body'>
-        <h2 class ='card-title'>${prod.nombre}</h2>
-        <p class='card-text'>Precio: $${prod.precio}</p>
-        <img src="${prod.imagen}" alt="">
-        <button id=${prod.id} class='btn btn-primary'>AGREGAR</button>
+        <h2 class ='card-title'>${prod?.nombre}</h2>
+        <p class='card-text'>Precio: $${prod?.precio}</p>
+        <img src="${prod?.imagen}" alt="">
+        <button id=${prod?.id} class='btn btn-primary'>AGREGAR</button>
     </div>
 </div>`
 })
@@ -183,14 +203,54 @@ botonesAgregar.forEach((boton) => {
         }
         const prodEnCarrito = carrito.find(prod => prod.id === prodCarrito.id)
 
-        if (!prodEnCarrito) {
-            carrito.push(prodCarrito);
-        } else {
-            prodEnCarrito.cantidad++;
-        }
+        !prodEnCarrito ? carrito.push(prodCarrito) : prodEnCarrito.cantidad++;
+
     }
 
 })
+
+
+
+//agregando productos utilizando async y una appi
+
+//funcion que ejecute el fetch
+
+
+const fetchProducts = async () => {
+	
+	const productsApi = await fetch(`https://fakestoreapi.com/products`);
+	const productsJSON = await productsApi.json();
+
+	return productsJSON;
+}
+
+//funcion que renderize los productos
+
+const renderProducts = async() => {
+	const productosDeApi = await fetchProducts();
+	
+	productosDeApi.forEach((prod) => {
+
+		const {id, title, price, category, image} = prod;
+
+        
+
+	indexProductos.innerHTML += `
+<div class='index__producto'>
+    <div class='card-body'>
+        <h2 class ='card-title'>${prod?.title}</h2>
+        <p class='card-text'>Precio: $${prod?.price}</p>
+        <img src="${prod?.image}" alt="">
+        <button id=${prod?.id} class='btn btn-primary'>AGREGAR</button>
+    </div>
+</div>`
+
+})
+
+}
+
+
+renderProducts();
 
 
 
@@ -222,18 +282,18 @@ botonFinalizar.onclick = () => {
     let totalCompra = 0;
 
 
-    carrito.forEach(prod => {
-        totalCompra+= prod.cantidad*prod.precio;
+    carrito.forEach((prod) => {
+        totalCompra += prod.cantidad * prod.precio;
         tbody.innerHTML += `
 
 
     <tr>
-        <td>${ prod.nombre }</td>
-        <td>${prod.cantidad}</td>
-        <td>${prod.cantidad * prod.precio}</td>
+        <td>${prod?.nombre}</td>
+        <td>${prod?.cantidad}</td>
+        <td>${prod?.cantidad * prod.precio}</td>
     </tr>
     `
-        total.innerText = `El total de tu compra es: ${ totalCompra } `
+        total.innerText = `El total de tu compra es: ${totalCompra} `
 
     });
 
@@ -263,7 +323,7 @@ formulario.onsubmit = (e) => {
 
     localStorage.setItem('infoUsuario', JSON.stringify(infoUsuario));
     formulario.remove();
-    titulo.innerText = `Bienvenido ${ infoUsuario.nombre } `
+    titulo.innerText = `Bienvenido ${infoUsuario?.nombre} `
 }
 
 
@@ -274,7 +334,7 @@ const infoUsuarioJS = JSON.parse(infoUsuario);
 
 if (infoUsuario) {
     formulario.remove();
-    titulo.innerText = `Bienvenido ${ infoUsuarioJS.nombre } `
+    titulo.innerText = `Bienvenido ${infoUsuarioJS?.nombre} `
 }
 
 
