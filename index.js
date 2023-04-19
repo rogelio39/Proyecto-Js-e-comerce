@@ -74,7 +74,6 @@ const alfajores = new Producto(24, 'Alfajores', 150, './img/alfajores.jfif', 10)
 
 const productos = [panIntegral, panBlanco, budines, alfajores];
 
-
 //agregar productos al select desde js, se puede hacer desde el html pero si mañana son 1 millon de productos hacer eso manual es muchisimo.
 
 const selectNode = document.querySelector('#listaProds');
@@ -194,41 +193,7 @@ productos.forEach((prod) => {
 //funcion que ejecute el fetch
 
 
-const fetchProducts = async () => {
-	
-	const productsApi = await fetch(`https://fakestoreapi.com/products`);
-	const productsJSON = await productsApi.json();
 
-	return productsJSON;
-}
-
-//funcion que renderize los productos
-
-const renderProducts = async() => {
-	const productosApi = await fetchProducts();
-	
-	productosApi.forEach((prod) => {
-
-		const {id, title, price, image} = prod;
-
-        productos.push(prod);
-
-	indexProductos.innerHTML += `
-<div class='index__producto'>
-    <div class='card-body'>
-        <h2 class ='card-title'>${title}</h2>
-        <p class='card-text'>Precio: $${price}</p>
-        <img src="${image}" alt="">
-        <button id=${id} class='btn btn-primary'>AGREGAR</button>
-    </div>
-</div>`
-
-})
-
-}
-
-
-renderProducts();
 
 
 //Se recupera cada uno de los botones agregar
@@ -248,7 +213,7 @@ botonesAgregar.forEach((boton) => {
         }
         const prodEnCarrito = carrito.find(prod => prod.id === prodCarrito.id)
 
-        !prodEnCarrito ? carrito.push(prodCarrito) : prodCarrito.cantidad++;
+        !prodEnCarrito ? carrito.push(prodCarrito) : prodEnCarrito.cantidad++;
 
     }
 
