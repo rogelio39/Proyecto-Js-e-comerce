@@ -122,7 +122,7 @@ const renderProducts = async () => {
         <h2 class ='card-title'>${title}</h2>
         <p class='card-text'>Precio: $${price}</p>
         <img src="${image}" alt="">
-        <button id='${id}' onclick="agregarProducto(${id})">AGREGAR</button>
+        <button id='${id}' class='btn btn-primary' onclick="agregarProducto(${id})">AGREGAR</button>
     </div>
 </div>`
 
