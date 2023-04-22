@@ -58,10 +58,14 @@ class Producto {
     }
 }
 
+//Arreglo para todos los productos en general
+
+const productos = [];
 
 //carrito
 
 const carrito = [];
+
 
 //recuperando boton listaprods
 
@@ -72,7 +76,6 @@ const selectNode = document.querySelector('#listaProds');
 
 const indexProductos = document.getElementById('index__productos');
 
-const botonesAgregar = document.querySelectorAll('.btn-primary');
 
 //agregando productos utilizando async y una appi
 
@@ -82,6 +85,7 @@ const fetchProducts = async () => {
 
     const productosApi = await fetch(`https://fakestoreapi.com/products`);
     const productosJSON = await productosApi.json();
+
 
     return productosJSON;
 }
@@ -105,6 +109,10 @@ const renderProducts = async () => {
     const productosApi = await fetchProducts();
 
     productosApi.forEach((prod) => {
+        productos.push(prod);
+    })
+
+    productosApi.forEach((prod) => {
 
         const { id, title, price, image } = prod;
 
@@ -114,9 +122,10 @@ const renderProducts = async () => {
         <h2 class ='card-title'>${title}</h2>
         <p class='card-text'>Precio: $${price}</p>
         <img src="${image}" alt="">
-        <button id=${id} onclick="agregarProductoApi(${id})" class='btn btn-primary'>AGREGAR</button>
+        <button id='${id}' onclick="agregarProducto(${id})">AGREGAR</button>
     </div>
 </div>`
+
 
 
         //agregar productos de la Api a lista prods
@@ -135,8 +144,24 @@ renderProducts();
 
 
 
+//creamos 4 productos
 
-const agregarProductoApi = async (id) => {
+const panIntegral = new Producto(100,'Pan integral', 2.99, `./img/panIntegral.jfif`, 20);
+const panBlanco = new Producto(200, 'Pan blanco', 1.50, './img/panBlanco.jfif', 10);
+const budines = new Producto(300, 'Budines', 3.22, './img/budines.jfif', 5);
+const alfajores = new Producto(400, 'Alfajores', 2.30, './img/alfajores.jfif', 10);
+
+const productosJs = [];
+
+productosJs.push(panIntegral, panBlanco, budines, alfajores);
+
+productosJs.forEach((prod) => {
+    productos.push(prod);
+})
+
+
+
+const agregarProducto = async (id) => {
     const productoCarritoApi = await fetchOneProduct(id);
     const busquedaProductoCarrito = carrito.find((prod) => prod.id === productoCarritoApi.id)
     if (!busquedaProductoCarrito) {
@@ -151,6 +176,129 @@ const agregarProductoApi = async (id) => {
     }
 }
 
+
+
+//Se realiza un forEach de productos y por cada producto se crea unas card y se agrega al DOM. Siempre manteniendo lo que ya esta asi se van concatenando y no sobreescribiendo. y se los agrega al arreglo productos.
+
+productos.forEach((prod) => {
+
+    const { id, title, price, image } = prod;
+    indexProductos.innerHTML +=
+        `<div class='index__producto'>
+        <div class='card-body'>
+            <h2 class ='card-title'>${title}</h2>
+            <p class='card-text'>Precio: $${price}</p>
+            <img src="${image}" alt="">
+            <button id='${id}' onclick="agregarProductoJs(${id})" class='btn btn-primary'>AGREGAR</button>
+        </div>
+    </div>`
+
+
+    
+//agregar productos al select desde js, se puede hacer desde el html pero si mañana son 1 millon de productos hacer eso manual es muchisimo.
+
+    const optionProd = document.createElement('option');
+    optionProd.innerText = `${title}: ${price}`;
+    optionProd.setAttribute(`id`, `${id}`);
+    selectNode.append(optionProd);
+
+
+})
+
+
+
+//boton añadir producto
+
+const btnNode = document.querySelector(`#añadirProd`);
+//modificar luego asi los productos de la appi tambien puedan seleccionarse desde aqui
+btnNode.onclick = () => {
+
+
+    if (usuarioNuevo3) {
+        const index = selectNode.selectedIndex;
+        const prodSeleccionado = productos[index];
+        const prodCarritoLista = {
+            id: prodSeleccionado.id,
+            title: prodSeleccionado.title,
+            price: prodSeleccionado.price,
+            cantidad: 1
+        }
+
+        const prodEnCarritoLista = carrito.find(prod => prod.id === prodCarritoLista.id)
+
+        !prodEnCarritoLista ? carrito.push(prodCarritoLista) : prodEnCarritoLista.cantidad++;
+
+    } else if (!usuarioNuevo3) {
+        alert("Debe crearse un usuario");
+
+        const crearseUsuario = prompt(`Desea crearselo?
+        
+        -Si
+        -No
+        
+        `);
+
+
+        //se agrega un condicional para que si el usuario decide crearse un usuario te solicite los datos, sino se sale y puedes continuar en la pagina sin usuario.
+
+        if (crearseUsuario === "no") {
+            swal.fire("Esta bien, puede continuar sin un usuario ");
+        } else if (crearseUsuario === "si") {
+
+            const nombre = prompt("Ingrese nombre de usuario")
+            const email = prompt("ingrese email: ")
+            const contraseña = parseInt(prompt("ingrese contraseña numerica: "));
+
+            while (contraseña < 10000000) {
+                swal.fire("Contraseña demasiado corta. Por favor ingrese una contraseña mas larga")
+                contraseña = parseInt(prompt("ingrese contraseña: "));
+            }
+
+
+            //se crea un nuevo usuario
+
+            usuarioNuevo3 = new Usuario(nombre, email, contraseña);
+
+            swal.fire("Usuario creado con exito.")
+            swal.fire("Ingrese ahora su cuenta")
+
+            //se llama a la funcion checkUsersi
+            checkUser();
+
+            users.push(usuarioNuevo3)
+
+
+            swal.fire({
+                title: `Bienvenido a Paradisi, tu nombre de usuario es "${usuarioNuevo3.nombre}" y el email con el que te creaste la cuenta "${usuarioNuevo3.email}" `
+            })
+        } else {
+            swal.fire("Entrada invalida");
+        }
+
+
+
+    };
+}
+
+const botonesAgregar = document.querySelectorAll('.btn-primary')
+
+const agregarProductoJs = (id) => {
+        const producto = productosJs.find((prod) => prod.id === id);
+        const busquedaProductoCarritoJs = carrito.find((prods) => prods.id === producto.id)
+            if (!busquedaProductoCarritoJs) {
+                carrito.push({
+                    id: producto.id,
+                    title: producto.title,
+                    cantidad: 1,
+                    price: producto.price
+                })
+            } else {
+                busquedaProductoCarritoJs.cantidad++;
+            }
+        }
+
+
+        console.log(carrito)
 
 
 //boton finalizar compra
@@ -182,21 +330,21 @@ botonFinalizar.onclick = () => {
 
 
     carrito.forEach((prod) => {
+        const { title, price, cantidad } = prod;
         totalCompra += prod.cantidad * prod.price;
         tbody.innerHTML += `
     <tr>
-        <td>${prod?.title}</td>
-        <td>${prod?.cantidad}</td>
-        <td>${prod?.cantidad * prod.price}</td>
+        <td>${title}</td>
+        <td>${cantidad}</td>
+        <td>${cantidad * price}</td>
     </tr>
     `
         total.innerText = `El total de tu compra es: ${totalCompra} `
 
-    });
+    })
+};
 
-}
 
-console.log(carrito)
 
 
 //==============FORMULARIO CONTACTO========================
