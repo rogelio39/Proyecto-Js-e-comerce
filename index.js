@@ -64,7 +64,7 @@ const productos = [];
 
 //carrito
 
-const carrito = [];
+let carrito = [];
 
 
 //recuperando boton listaprods
@@ -117,12 +117,13 @@ const renderProducts = async () => {
         const { id, title, price, image } = prod;
 
         indexProductos.innerHTML += `
-<div class='index__producto'>
+< class='index__producto'>
     <div class='card-body'>
         <h2 class ='card-title'>${title}</h2>
         <p class='card-text'>Precio: $${price}</p>
         <img src="${image}" alt="">
         <button id='${id}' class='btn btn-primary' onclick="agregarProducto(${id})">AGREGAR</button>
+        <button id='${id}' class='btn btn-primary' onclick="quitarProductosApi(${id})">QUITAR</button>
     </div>
 </div>`
 
@@ -146,7 +147,7 @@ renderProducts();
 
 //creamos 4 productos
 
-const panIntegral = new Producto(100,'Pan integral', 2.99, `./img/panIntegral.jfif`, 20);
+const panIntegral = new Producto(100, 'Pan integral', 2.99, `./img/panIntegral.jfif`, 20);
 const panBlanco = new Producto(200, 'Pan blanco', 1.50, './img/panBlanco.jfif', 10);
 const budines = new Producto(300, 'Budines', 3.22, './img/budines.jfif', 5);
 const alfajores = new Producto(400, 'Alfajores', 2.30, './img/alfajores.jfif', 10);
@@ -174,7 +175,25 @@ const agregarProducto = async (id) => {
     } else {
         busquedaProductoCarrito.cantidad++;
     }
+    mensajeProductoAgregado();
 }
+
+const quitarProductosApi = (id) => {
+    const busquedaProductoCarrito = carrito.find((prod) => prod.id === id)
+    if (!busquedaProductoCarrito) {
+        swal.fire('Este producto no se encuentra en tu carrito')
+    } else {
+        if (busquedaProductoCarrito.cantidad === 1){
+        carrito = carrito.filter((prod) => prod.id !== id)
+    } else {
+        busquedaProductoCarrito.cantidad--;
+    }
+    mensajeProductoEliminado();
+}
+}
+
+
+
 
 
 
@@ -190,12 +209,12 @@ productos.forEach((prod) => {
             <p class='card-text'>Precio: $${price}</p>
             <img src="${image}" alt="">
             <button id='${id}' onclick="agregarProductoJs(${id})" class='btn btn-primary'>AGREGAR</button>
-        </div>
+            <button id='${id}'onclick="quitarProductos(${id})" class='btn btn-primary'>QUITAR</button>
+            </div>
     </div>`
 
 
-    
-//agregar productos al select desde js, se puede hacer desde el html pero si mañana son 1 millon de productos hacer eso manual es muchisimo.
+    //agregar productos al select desde js, se puede hacer desde el html pero si mañana son 1 millon de productos hacer eso manual es muchisimo.
 
     const optionProd = document.createElement('option');
     optionProd.innerText = `${title}: ${price}`;
@@ -283,22 +302,56 @@ btnNode.onclick = () => {
 const botonesAgregar = document.querySelectorAll('.btn-primary')
 
 const agregarProductoJs = (id) => {
-        const producto = productosJs.find((prod) => prod.id === id);
-        const busquedaProductoCarritoJs = carrito.find((prods) => prods.id === producto.id)
-            if (!busquedaProductoCarritoJs) {
-                carrito.push({
-                    id: producto.id,
-                    title: producto.title,
-                    cantidad: 1,
-                    price: producto.price
-                })
-            } else {
-                busquedaProductoCarritoJs.cantidad++;
-            }
+    const producto = productosJs.find((prod) => prod.id === id);
+    const busquedaProductoCarritoJs = carrito.find((prods) => prods.id === producto.id)
+    if (!busquedaProductoCarritoJs) {
+        carrito.push({
+            id: producto.id,
+            title: producto.title,
+            cantidad: 1,
+            price: producto.price
+        })
+    } else {
+        busquedaProductoCarritoJs.cantidad++;
+    }
+    mensajeProductoAgregado();
+}
+
+const quitarProductos = (id) => {
+    const busquedaProductoCarritoJs = carrito.find((prods) => prods.id === id)
+    if (!busquedaProductoCarritoJs) {
+        swal.fire('Este producto no se encuentra en tu carrito')
+    } else {
+        if(busquedaProductoCarritoJs.cantidad === 1){
+            carrito = carrito.filter((prod) => prod.id !== id)
+        } else{
+            busquedaProductoCarritoJs.cantidad--;
         }
+        mensajeProductoEliminado();
+    }
+}
+
+console.log(carrito)
+
+const mensajeProductoAgregado = () => {
+    swal.fire({
+        text:'Producto añadido',
+        timer:1000
+    })
+}
 
 
-        console.log(carrito)
+const mensajeProductoEliminado = () => {
+    swal.fire({
+        text:'Producto eliminado',
+        timer:1000
+    })
+}
+
+
+
+
+
 
 
 //boton finalizar compra
