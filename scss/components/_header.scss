@@ -4,7 +4,7 @@
     font-size: $fuente-encabezado;
     padding: 15px;
     background-color: $color-primario;
-    position: sticky;
+    position:fixed;
     top: 0;
     z-index: 4;
     box-shadow: 20px 0px 10px 10px black;
