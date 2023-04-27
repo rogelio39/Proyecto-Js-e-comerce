@@ -2,10 +2,10 @@
 
 .index__encabezado {
     font-size: $fuente-encabezado;
-    padding: 15px;
+    padding: 10px;
     background-color: $color-primario;
     position:fixed;
-    top: 0;
+    width: 100%;
     z-index: 4;
     box-shadow: 20px 0px 10px 10px black;
     margin-bottom: 2rem;
